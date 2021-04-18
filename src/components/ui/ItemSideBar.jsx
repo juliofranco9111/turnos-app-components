@@ -27,7 +27,12 @@ export const ItemSideBar = ({ d = '', to = '', title = '', fn = null }) => {
 
           <div className='sidebar__text w-10/12'>{title}</div>
         </div>
+       
       </Link>
+
+      
     </div>
   );
 };
+
+

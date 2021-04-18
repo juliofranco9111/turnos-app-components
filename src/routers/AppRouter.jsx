@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Redirect, Route } from 'react-router-dom';
 
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRouter';
@@ -12,6 +12,7 @@ import { HomeScreen } from '../components/pages/HomeScreen';
 import { ProfileScreen } from '../components/pages/ProfileScreen';
 import { SideBar } from '../components/ui/SideBar';
 import { NavBarMobile } from '../components/ui/NavBarMobile';
+import { HeaderNav } from '../components/ui/HeaderNav';
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
@@ -24,45 +25,59 @@ export const AppRouter = () => {
 
   if (checking) {
     return <Loading />;
-  }
-
-  return (
-    <Router>
-      <div>
-        <Switch>
-          <PublicRoute
-            path='/ingreso'
-            component={LoginScreen}
-            isLoggedIn={!!uid}
-          />
-          <PublicRoute
-            path='/registro/:type'
-            component={RegisterScreen}
-            isLoggedIn={!!uid}
-          />
-
+  } else {
+    return (
+      <Router>
+        <div>
+          <Switch>
+          
+            {/* <PublicRoute
+              path='/ingreso'
+              component={LoginScreen}
+              isLoggedIn={!!uid}
+            />
+            <PublicRoute
+              path='/registro/:type'
+              component={RegisterScreen}
+              isLoggedIn={!!uid}
+            /> */}
+            <Route path="/ingreso">
+            <LoginScreen />
+          </Route>
+          <Route path="/registro/:type">
+            <RegisterScreen />
+          </Route>
           <>
-            <SideBar />
-            <NavBarMobile />
+              <SideBar />
+              <HeaderNav />
+              <NavBarMobile />
 
-            <PrivateRoute
-              exact
-              path='/home'
-              component={HomeScreen}
-              isLoggedIn={!!uid}
-            />
+              <Route path="/home">
+            <HomeScreen />
+          </Route>
+          <Route path="/home/perfil">
+            <ProfileScreen />
+          </Route>
 
-            <PrivateRoute
-              exact
-              path='/home/perfil'
-              component={ProfileScreen}
-              isLoggedIn={!!uid}
-            />
-          </>
+              {/* <PrivateRoute
+                exact
+                path='/home'
+                component={HomeScreen}
+                isLoggedIn={!!uid}
+              />
 
-          <Redirect to='/ingreso' />
-        </Switch>
-      </div>
-    </Router>
-  );
+              <PrivateRoute
+                exact
+                path='/home/perfil'
+                component={ProfileScreen}
+                isLoggedIn={!!uid}
+              /> */}
+            </>
+
+            <Redirect to='/ingreso' />
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
 };

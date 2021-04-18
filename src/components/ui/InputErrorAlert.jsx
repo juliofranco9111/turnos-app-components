@@ -31,7 +31,7 @@ export const InputErrorAlert = ({ title = '', msg = '', type = '' }) => {
   if (type === 'warning') {
     return (
       <div
-        className='bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative animate__animated animate__fadeInUp'
+        className='bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative animate__animated animate__fadeIn'
         role='alert'>
         <h1><strong className='font-bold'>{ title }</strong></h1>
         <span className='block sm:inline'>

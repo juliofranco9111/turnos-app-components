@@ -1,30 +1,47 @@
 import { types } from '../types/types';
 
 const intialState = {
-    error: false,
-}
+  verify: { loading: false },
+};
 
-export const appointmentReducer = ( state = intialState, action ) => {
+export const appointmentReducer = (state = intialState, action) => {
+  switch (action.type) {
+    case types.appointmentStartLoadingVerify:
+      return {
+        ...state,
+        verify: { loading: true },
+      };
 
-    switch (action.type) {
-        case types.userVerifyDocument:
-            return {
-                ...state,
-                error: null,
-                userActive: action.payload
-            }
+    case types.appointmentVerifyDate:
+      return {
+        ...state,
 
-            case types.userErrorDocument:
-                return{
-                    ...state,
-                    error: action.payload,
-                    userActive: null
-                } 
-            
-            
-    
-        default:
-            return state;
-    }
-  
-}
+        verify: {
+          ...action.payload,
+          loading: false,
+        },
+      };
+    case types.appointmentClearVerify:
+      return {
+        verify: { loading: false },
+      };
+
+    case types.appointmentSetProfessional:
+      return {
+        ...state,
+        professional: action.payload,
+      };
+    case types.appointmentSetDate:
+      return {
+        ...state,
+        date: action.payload,
+      };
+    case types.appointmentClear:
+      return {
+        verify: { loading: false }
+      };
+
+    default:
+      return state;
+  }
+};

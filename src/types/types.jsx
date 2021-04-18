@@ -15,8 +15,17 @@ export const types = {
 
     userVerifyDocument: '[user] Verify  document',
     userErrorDocument: '[user] Error document',
+    userSetUser: '[user] Set user profile',
+    userClearUser: '[user] Clear user profile',
 
-    profileSetUser: '[profile] Set user profile'
+    appointmentStartLoadingVerify: '[appointment] Start Verify',
+    appointmentClearVerify: '[appointment] Start Verify',
+    appointmentVerifyDate: '[appointment] Verify date aviable',
+    appointmentSetProfessional: '[appointment] Set Professional',
+    appointmentSetDate: '[appointment] Set Date',
+    appointmentClear: '[appointment] Clear data',
+    
+    
 
 
 }

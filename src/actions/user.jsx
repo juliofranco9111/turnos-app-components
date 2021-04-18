@@ -1,6 +1,5 @@
 import { fetchWithToken } from '../helpers/fetch';
 import { types } from '../types/types';
-import Swal from 'sweetalert2';
 import { setCapital } from '../helpers/setCapitalizedString';
 
 export const getProfileUser = (uid) => {
@@ -9,25 +8,25 @@ export const getProfileUser = (uid) => {
 
     const body = await resp.json();
 
-    console.log(body);
-
     if (body.ok) {
-
-      let nameUser = setCapital( body.name )
+      let nameUser = setCapital(body.name);
 
       dispatch(
         setProfileUser({
-          uid: body.uid,
           name: nameUser,
-          email: body.email
+          email: body.email,
+          role: body.role,
         })
       );
     }
   };
 };
 
-
 const setProfileUser = (user) => ({
-  type: types.profileSetUser,
-  payload: user
-})
+  type: types.userSetUser,
+  payload: user,
+});
+
+export const clearUser = () => ({
+  type: types.userClearUser,
+});

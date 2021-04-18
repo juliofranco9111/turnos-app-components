@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProfileUser } from '../../actions/profile';
+import { getProfileUser } from '../../actions/user';
 import { setCapital } from '../../helpers/setCapitalizedString';
 import { useForm } from '../../hooks/useForm';
 import { Loading } from '../ui/Loading';
 
 export const ProfileScreen = () => {
-  const { uid } = useSelector((state) => state.auth);
-  const profile = useSelector((state) => state.profile);
-  const { loading, email, name } = profile;
+  const user = useSelector((state) => state.user);
+
+
+  const { loading, email, name } = user;
 
   const initialValues = {
     userName: name,
@@ -19,11 +20,7 @@ export const ProfileScreen = () => {
 
   const { userName, userEmail } = formValues;
 
-const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getProfileUser(uid));
-  }, [dispatch]);
 
   if (loading) {
     return <Loading />;
@@ -55,7 +52,7 @@ const dispatch = useDispatch();
                   <input
                     name='userEmail'
                     type='text'
-                    id='user-info-name'
+                    id='user-info-email'
                     className=' rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent'
                     placeholder='E-mail'
                     value={ userEmail }

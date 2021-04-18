@@ -1,5 +1,6 @@
 import { fetchWithoutToken, fetchWithToken } from '../helpers/fetch';
 import { types } from '../types/types';
+import { clearUser } from './user';
 import Swal from 'sweetalert2';
 
 // Cheking if logged
@@ -16,11 +17,9 @@ export const startChecking = () => {
       dispatch(
         login({
           uid: body.uid,
-          name: body.name,
         })
       );
     }
-
 
     dispatch(checkingFinish());
   };
@@ -58,7 +57,6 @@ export const startRegister = ({
       dispatch(
         login({
           uid: body.uid,
-          name: body.name,
         })
       );
     } else {
@@ -78,11 +76,10 @@ export const startLogin = (email, password) => {
     if (body.ok) {
       localStorage.setItem('token', body.token);
       localStorage.setItem('token-init-date', new Date().getTime());
-      console.log(body.uid)
+      console.log(body.uid);
       dispatch(
         login({
           uid: body.uid,
-          name: body.name,
         })
       );
     } else {
@@ -100,6 +97,7 @@ export const startLogout = () => {
   return (dispatch) => {
     localStorage.clear();
     dispatch(logout());
+    dispatch(clearUser());
   };
 };
 
